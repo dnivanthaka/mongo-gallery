@@ -4,12 +4,10 @@ require_once('DBHandling.php');
 $message = '';
 
 if(isset($_POST['isPosted'])){
-    echo 'xxx';
     if($_FILES['image']['error'] !== 0){
         die('Error uploading file, Code = '.$_FILES['image']['error']);
         
-    }
-     echo 'xxx';
+    }  
     $dbconn = DBHandling::getInstance();
     $gridFS = $dbconn->database->getGridFS();
     
@@ -17,12 +15,12 @@ if(isset($_POST['isPosted'])){
     $filetype = $_FILES['image']['type'];
     $tempfile  = $_FILES['image']['tmp_name'];
     $caption  = $_POST['caption'];
-     echo 'xxx';
-    /*$id = $gridFS->storeFile($tempfile, array(
+
+    $id = $gridFS->storeFile($tempfile, array(
         'filename' => $filename,
         'filetype' => $filetype,
         'caption'  => $caption
-    ));*/
+    ));
     
     $message = 'Image file uploaded with ID = '.$id;
 }
@@ -33,7 +31,12 @@ if(isset($_POST['isPosted'])){
     <title>Upload images</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <!--<link rel="stylesheet" href="styles.css" media="screen" />-->
-    <style></style>
+    <style>
+     input{
+        display: block;
+        margin-top: 5px;
+     }
+    </style>
   </head>
   
   <body>
